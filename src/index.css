@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  height: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../public/assets/images/background-desktop.png");
+}
+
+.spiral-element-bottom,
+.spiral-element-top {
+  position: absolute;
+}
+.spiral-element-bottom {
+  bottom: 0;
+  height: 65vh;
+}
+.spiral-element-top {
+  height: 30vh;
+  top: 0;
+  right: 0;
+}
