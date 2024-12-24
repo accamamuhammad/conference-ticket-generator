@@ -1,16 +1,43 @@
 * {
   margin: 0;
-  height: 0;
+  padding: 0;
   font-size: 16px;
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Inconsolata-Regular";
+  src: url("../public/assets/fonts/static/Inconsolata-Regular.ttf");
+}
+@font-face {
+  font-family: "Inconsolata-Medium";
+  src: url("../public/assets/fonts/static/Inconsolata-Medium.ttf");
+}
+@font-face {
+  font-family: "Inconsolata-Bold";
+  src: url("../public/assets/fonts/static/Inconsolata-Bold.ttf");
+}
+@font-face {
+  font-family: "Inconsolata-ExtraBold";
+  src: url("../public/assets/fonts/static/Inconsolata-ExtraBold.ttf");
+}
+
 body {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
+  color: white;
   background-position: center;
   background-repeat: no-repeat;
   background-image: url("../public/assets/images/background-desktop.png");
+}
+
+.main-bg {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
 }
 
 .spiral-element-bottom,
@@ -18,11 +45,12 @@ body {
   position: absolute;
 }
 .spiral-element-bottom {
+  left: 0;
   bottom: 0;
   height: 65vh;
 }
 .spiral-element-top {
-  height: 30vh;
   top: 0;
   right: 0;
+  height: 30vh;
 }
