@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import app from "../config/firebase";
 import { getDatabase, set, ref, push } from "firebase/database";
 import LogoOutline from "../../public/assets/images/logo-mark.svg";
@@ -11,6 +12,7 @@ const Form = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   //* Drag and Drop
   const onDrop = useCallback((acceptedFiles) => {
@@ -24,6 +26,7 @@ const Form = () => {
       alert("Fill all fields");
     } else {
       AddNewTicket();
+      navigate("/ticket");
     }
   };
 
