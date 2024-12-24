@@ -101,6 +101,7 @@
 .form-container button {
   height: 48px;
   border: none;
+  cursor: pointer;
   border-radius: 8px;
   font-family: "Inconsolata-Bold";
   background-color: rgb(229, 124, 106);

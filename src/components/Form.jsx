@@ -1,17 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
+import app from "../config/firebase";
+import { getDatabase, set, ref, push } from "firebase/database";
 import LogoOutline from "../../public/assets/images/logo-mark.svg";
 import DragAndDropIcon from "../../public/assets/images/icon-upload.svg";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const Form = () => {
+  const [avatar, setAvatar] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+
   //* Drag and Drop
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
+    setAvatar(acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  //* handle inputs
+  //* Generate Ticket
+  const GenerateTicket = () => {
+    if ((name === "") | (email === "") | (username === "")) {
+      alert("Fill all fields");
+    } else {
+      AddNewTicket();
+    }
+  };
+
+  //* Add ticket to database
+  const AddNewTicket = async () => {
+    const db = getDatabase(app);
+    const ticketRef = ref(db, "tickets");
+    const newTicketRef = push(ticketRef);
+    await set(newTicketRef, {
+      avatar: avatar,
+      name: name,
+      email: email,
+      username: username,
+    })
+      .then(alert("new ticket added"))
+      .catch((err) => {
+        console.log("Error", err);
+      });
+  };
 
   return (
     <div className="form-container">
@@ -47,7 +78,12 @@ const Form = () => {
         {/* Other inputs */}
         <div className="other">
           <label htmlFor="full-name">Full Name</label>
-          <input type="text" name="full-name" placeholder="john wood" />
+          <input
+            type="text"
+            name="full-name"
+            placeholder="john wood"
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className="other">
           <label htmlFor="email-address">Email Address</label>
@@ -55,14 +91,20 @@ const Form = () => {
             type="email"
             name="email-address"
             placeholder="example@email.com"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="other">
           <label htmlFor="username">Github Username</label>
-          <input type="text" name="username" placeholder="@username" />
+          <input
+            type="text"
+            name="username"
+            placeholder="@username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
         {/* Button */}
-        <button>Generate My Ticket</button>
+        <button onClick={GenerateTicket}>Generate My Ticket</button>
       </div>
     </div>
   );
