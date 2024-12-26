@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import LogoOutline from "../../public/assets/images/logo-mark.svg";
+// import LogoOutline from "../../public/assets/images/logo-mark.svg";
 import app from "../config/firebase";
 import { getDatabase, get, ref } from "firebase/database";
 
@@ -37,7 +37,7 @@ const Ticket = () => {
     <div className="form-container">
       {/* Logo Header */}
       <div className="form-header ticket-header">
-        <img src={LogoOutline} alt="LogoOutline" />
+        {/* <img src={LogoOutline} alt="LogoOutline" /> */}
         <h1>Coding Conf</h1>
       </div>
       {/* Header Text */}
