@@ -130,11 +130,11 @@
 
 .circle-cut {
   width: 450px;
-  --r: 30px; /* cut size */
+  --r: 30px;
   height: 220px;
   aspect-ratio: 1.2;
   border-radius: 20px;
-  background-color: white;
+  background-color: rgb(62, 62, 62);
   mask: radial-gradient(var(--r) at 70% var(--r), #0000 calc(100% - 1px), #000)
     0 calc(-1 * var(--r));
 }

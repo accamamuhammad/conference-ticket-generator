@@ -13,9 +13,10 @@ const Ticket = () => {
     try {
       const snapshot = await get(ticketRef);
       if (snapshot.exists()) {
-        const data = Object.values(snapshot.val());
-        setData(data);
-        console.log(data);
+        const DatabaseData = Object.values(snapshot.val());
+        const lastIndex = DatabaseData.length - 1;
+        setData(DatabaseData[lastIndex]);
+        console.log(DatabaseData[lastIndex]);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -23,8 +24,13 @@ const Ticket = () => {
   };
 
   useEffect(() => {
-    // getDataFromDatabase();
+    getDataFromDatabase();
   }, []);
+
+  //* Create preview of image
+  const imagePreview = () => {
+    console.log(DatabaseData[lastIndex].avatar);
+  };
 
   return (
     <div className="form-container">
@@ -35,15 +41,18 @@ const Ticket = () => {
       </div>
       {/* Header Text */}
       <h1 className="header-text">
-        Congrats, <span>Jonatan Kristof!</span> <br />
+        Congrats, <span>{data.name}</span> <br />
         Your ticket is ready.
       </h1>
       <p className="header-sub-text-ticket">
         we've emailed your ticket to <br />
-        <span>jonatan@email.com</span> and will send updates in <br /> the run
-        up to the event
+        <span>{data.email}</span> and will send updates in <br /> the run up to
+        the event
       </p>
-      <div className="circle-cut"></div>
+      <div className="circle-cut">
+        <h1>{data.username}</h1>
+        <img src={data.avatarPreview} alt="" width={80} height={80} />
+      </div>
     </div>
   );
 };

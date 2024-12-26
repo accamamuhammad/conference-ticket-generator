@@ -8,20 +8,29 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const Form = () => {
-  const [avatar, setAvatar] = useState([]);
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   //* Drag and Drop
-  const onDrop = useCallback((acceptedFiles) => {
-    setAvatar(acceptedFiles);
-  }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const handleNewImage = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Create a temporary URL for the uploaded file
+      const fileURL = URL.createObjectURL(file);
+
+      // Set the src attribute of the image to display the preview
+      setAvatarPreview(fileURL);
+    } else {
+      setImagePreview(null); // Clear the preview if no file is selected
+    }
+  };
 
   //* Generate Ticket
-  const GenerateTicket = () => {
+  const GenerateTicket = async () => {
     if ((name === "") | (email === "") | (username === "")) {
       alert("Fill all fields");
     } else {
@@ -36,7 +45,7 @@ const Form = () => {
     const ticketRef = ref(db, "tickets");
     const newTicketRef = push(ticketRef);
     await set(newTicketRef, {
-      avatar: avatar,
+      avatarPreview: avatarPreview,
       name: name,
       email: email,
       username: username,
@@ -64,20 +73,10 @@ const Form = () => {
       </p>
       {/* All Inputs */}
       <div className="input-container">
+        {/* Preview */}
+        <img src={avatarPreview} alt="" width={80} height={80} />
         {/* Upload input */}
-        <div {...getRootProps()} className="upload-box">
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <div className="upload-select-box">
-              <div>
-                <img src={DragAndDropIcon} alt="" />
-              </div>
-              <p>Drag 'n' drop some files here</p>
-            </div>
-          )}
-        </div>
+        <input type="file" onChange={(e) => handleNewImage(e)} />
         {/* Other inputs */}
         <div className="other">
           <label htmlFor="full-name">Full Name</label>
