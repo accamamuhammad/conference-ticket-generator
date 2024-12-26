@@ -6,6 +6,7 @@ import { getDatabase, get, ref } from "firebase/database";
 
 const Ticket = () => {
   const [data, setData] = useState([]);
+  const [ticketId, setTickerID] = useState(0);
 
   const getDataFromDatabase = async () => {
     const db = getDatabase(app);
@@ -16,7 +17,7 @@ const Ticket = () => {
         const DatabaseData = Object.values(snapshot.val());
         const lastIndex = DatabaseData.length - 1;
         setData(DatabaseData[lastIndex]);
-        console.log(DatabaseData[lastIndex]);
+        setTickerID(DatabaseData.length + 1601);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -52,6 +53,10 @@ const Ticket = () => {
       <div className="circle-cut">
         <h1>{data.username}</h1>
         <img src={data.avatarPreview} alt="" width={80} height={80} />
+        <p>
+          {"#0"}
+          {ticketId}
+        </p>
       </div>
     </div>
   );
