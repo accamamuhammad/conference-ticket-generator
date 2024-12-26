@@ -1,11 +1,12 @@
-import React from "react";
 import { useState, useEffect } from "react";
-// import LogoOutline from "../../public/assets/images/logo-mark.svg";
+import LogoOutline from "../../public/assets/images/logo-mark.svg";
 import app from "../config/firebase";
 import { getDatabase, get, ref } from "firebase/database";
 
 const Ticket = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    { avatarPreview: "", email: "", name: "", username: "" },
+  ]);
   const [ticketId, setTickerID] = useState(0);
 
   const getDataFromDatabase = async () => {
@@ -17,6 +18,7 @@ const Ticket = () => {
         const DatabaseData = Object.values(snapshot.val());
         const lastIndex = DatabaseData.length - 1;
         setData(DatabaseData[lastIndex]);
+        console.log(DatabaseData[lastIndex]);
         setTickerID(DatabaseData.length + 1601);
       }
     } catch (error) {
@@ -28,16 +30,11 @@ const Ticket = () => {
     getDataFromDatabase();
   }, []);
 
-  //* Create preview of image
-  const imagePreview = () => {
-    console.log(DatabaseData[lastIndex].avatar);
-  };
-
   return (
     <div className="form-container">
       {/* Logo Header */}
       <div className="form-header ticket-header">
-        {/* <img src={LogoOutline} alt="LogoOutline" /> */}
+        <img src={LogoOutline} alt="LogoOutline" />
         <h1>Coding Conf</h1>
       </div>
       {/* Header Text */}
@@ -52,7 +49,12 @@ const Ticket = () => {
       </p>
       <div className="circle-cut">
         <h1>{data.username}</h1>
-        <img src={data.avatarPreview} alt="" width={80} height={80} />
+        <img
+          src={data.avatarPreview}
+          alt="avatar preview"
+          width={80}
+          height={80}
+        />
         <p>
           {"#0"}
           {ticketId}
