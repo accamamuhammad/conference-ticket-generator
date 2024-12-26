@@ -18,7 +18,6 @@ const Ticket = () => {
         const DatabaseData = Object.values(snapshot.val());
         const lastIndex = DatabaseData.length - 1;
         setData(DatabaseData[lastIndex]);
-        console.log(DatabaseData[lastIndex]);
         setTickerID(DatabaseData.length + 1601);
       }
     } catch (error) {
