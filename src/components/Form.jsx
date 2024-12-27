@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import app from "../config/firebase";
 import { getDatabase, set, ref, push } from "firebase/database";
 import LogoOutline from "../../public/assets/images/logo-mark.svg";
 import DragAndDropIcon from "../../public/assets/images/icon-upload.svg";
 import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
 
-const Form = () => {
-  const [avatar, setAvatar] = useState("");
+const Form = ({ sendDataToMainPage }) => {
   const [avatarPreview, setAvatarPreview] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const navigate = useNavigate();
 
   //* Drag and Drop
   const handleNewImage = (e) => {
@@ -35,7 +31,7 @@ const Form = () => {
       alert("Fill all fields");
     } else {
       AddNewTicket();
-      navigate("/ticket");
+      sendDataToMainPage(true);
     }
   };
 
