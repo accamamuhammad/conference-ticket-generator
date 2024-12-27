@@ -6,7 +6,7 @@ import Form from "./components/Form";
 import Ticket from "./components/Ticket";
 
 function App() {
-  const [currentState, setCurrentState] = useState(false);
+  const [currentState, setCurrentState] = useState("");
 
   const handleDataFromChild = (data) => {
     setCurrentState(data);

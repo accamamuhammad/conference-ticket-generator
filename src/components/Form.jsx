@@ -4,10 +4,8 @@ import { getDatabase, set, ref, push } from "firebase/database";
 import LogoOutline from "../../public/assets/images/logo-mark.svg";
 import DragAndDropIcon from "../../public/assets/images/icon-upload.svg";
 import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
 
 const Form = ({ sendDataToMainPage }) => {
-  const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
